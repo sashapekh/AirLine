@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load iterate_times %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="inline-group">
+            <div class="col-md-12">
+                <a href="{% url 'index' %}" class="btn btn-success">На главную</a>
+                <h1 class="">Hotels view</h1>
+                <div class="hotels">
+                    {% if hotels %}
+                        {% for item in hotels %}
+                            <div class="row">
+                                <div class="list-group">
+                                    <div class="media col-md-3">
+                                        <figure class="pull-left">
+                                            <img class="img-thumbnail" src="/media/{{ item.image }}" width="300px" height="250px" alt="placehold.it/350x250">
+                                        </figure>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <h4 class="list-group-item-heading"> "{{ item.hotel_name }}" </h4>
+                                        <h5 class="list-group-item-heading">{{ item.street }}</h5>
+                                        <hr>
+                                        <p class="list-group-item-text">{{ item.description }}</p>
+                                    </div>
+
+                                    <div class="col-md-3 text-center">
+                                        <button type="button" class="btn btn-default btn-lg btn-block"> Бронировать </button>
+                                        <a href="{% url 'hotel_order' hotel_id=item.id %}" class="btn btn-default btn-lg btn-block">Link</a>
+                                        <div class="stars">
+                                            {% for i in item.h_stars|times %}
+                                                <span class="glyphicon glyphicon-star"></span>
+                                            {% endfor %}
+                                        </div>
+                                        <p> Average 4.5 <small> / </small> 5 </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

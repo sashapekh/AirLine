@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="page-header">
+        <h1>AirLine reservation</h1>
+    </div>
+
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'index' %}">Главная</a></li>
+                    <li><a href="{% url 'ticket_search' %}">Поиск авиабилетов</a></li>
+                    <li><a href="{% url 'hotels' %}">Отели</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+                {% if user.is_authenticated %}
+                    <div class="form-inline text-right">
+                        <div class="form-group">
+                            <h5>{{ request.user }}</h5>
+                            <a href="{% url 'logout' %}" class="btn btn-primary">Выход</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <form class="form-inline text-right" method="post">
+                        {% csrf_token %}
+                        <label class="sr-only" for="inlineFormInputGroup">Email</label>
+                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon">@</div>
+                            <input type="text" class="form-control" name="username" id="inlineFormInputGroup" placeholder="Email">
+                        </div>
+
+                        <label class="sr-only" for="inlineFormInput">Name</label>
+                        <input type="password" class="form-control mb-2 mr-sm-2 mb-sm-0" id="password" name="password" placeholder="Пароль">
+
+
+                        <button type="submit" class="btn btn-primary">Вход</button>
+                     </form>
+                {% endif %}
+
+             </div>
+        </nav>
+
+    </div>
+        <div class="col-md-10">
+            <div id="messages">
+                {% if messages %}
+                    {% for message in messages %}
+                           <div class="alert {{ message.tags }} alert-success" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                </button>
+                                 {{ message }}
+                           </div>
+                    {% endfor %}
+
+
+                {% endif %}
+            </div>
+        </div>
+</div>
+
+{% endblock %}

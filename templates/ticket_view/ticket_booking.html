@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ticket booking</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'calendar/dist/css/datepicker.min.css' %}">
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="col-md-offset-2 col-md-8">
+            <h1>Полная информация о выбранном билете</h1>
+            {% for item in ticket_query %}
+             <div class="ticket jumbotron jumbotron-fluid">
+                <h4>От куда -  {{ item.start_city_name__name }}</h4>
+                <h5>Название аеропорта - {{ item.airport_name_start }}</h5>
+                 <h5>Дата отправления - {{ item.start_date }}</h5>
+                 <h5>Название терминала отправления - терминал {{ item.terminal_fk__name }}</h5>
+                 <br>
+                <h4>Куда - {{ item.end_city_name__name }}</h4>
+                <h5>Название аеропорта - {{ item.airport_name_end }}</h5>
+                <h5>Дата прибытия - {{ item.end_date }}</h5>
+                 <br>
+                <h5> Цена билета - {{ item.ticket__ticket_type__price }}</h5>
+                <h5>Место на рейсе - {{ item.ticket__place_number }}</h5>
+                <h5>Тип билета - {{ item.ticket__ticket_type__ticket_type }}</h5>
+                 <br>
+                 <form action="" method="post">
+                     {% csrf_token %}
+                     <div class="form-group">
+                         <select name="confirm" id="">
+                            <option  name="confirm" value="Данные верны">Данные верны</option>
+                         </select>
+                         <button class="btn btn-success" type="submit">Подтвердить бронирование </button>
+                     </div>
+                 </form>
+             </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</body>
+</html>

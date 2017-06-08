@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <!-- calculate hotel price script -->
+    <script>
+{#        function finalCost(){#}
+{#            var roomType = document.getElementById("room_type").value;#}
+{#            var roomNum = document.getElementById("room_number").value;#}
+{#            var personNum = document.getElementById("person_number").value;#}
+{#            var childNum = document.getElementById("child_number").value;#}
+{#            var resFacilities = document.getElementById("res_facilities").value;#}
+{##}
+{#            var total = (parseInt(roomType)*10) + ((roomNum)*2) + ((personNum)*3) + ((childNum)*2) + ((resFacilities)*5)#}
+{##}
+{#            document.getElementById("result").innerHTML = total;#}
+{#        }#}
+    </script>
+
+    <div class="row">
+        <div class="content">
+            <div class="col-md-10 col-md-offset-1">
+                <h1>Форма бронирования номера</h1>
+                <!-- hotel form reservation -->
+                <div class="hotel_reserve_box">
+         <h3> Отель "{{ hotel_name }}" </h3><br>
+         <form method="post">
+
+             {% csrf_token %}
+
+
+
+             <div class="form-group">
+                 <label>Тип нормера</label>
+                 <select name="room_type" class="form-control" id="room_type" >
+
+                     {% for items in hotel_info %}
+                         <option value="{{ items.hotelroom__price }},{{ items.hotelroom__room_type }}">{{ items.hotelroom__room_type }} цена {{ items.hotelroom__price }}$</option>
+                     {% endfor %}
+
+                 </select>
+             </div>
+             <div class="form-group">
+                 <label>Количество комнат</label>
+                 <select name="room_number" class="form-control" id="room_number" >
+                     <option value="0"> 0 </option>
+                     <option value="1"> 1 </option>
+                     <option value="2"> 2 </option>
+                     <option value="3"> 3 </option>
+                     <option value="4"> 4 </option>
+                 </select>
+             </div>
+             <div class="form-group">
+                 <label>Количество персон</label>
+                 <select name="person_number" class="form-control" id="person_number">
+                     <option value="0"> 0 </option>
+                     <option value="1"> 1 </option>
+                     <option value="2"> 2 </option>
+                     <option value="3"> 3 </option>
+                     <option value="4"> 4 </option>
+                     <option value="5"> 5 </option>
+                     <option value="6"> 6 </option>
+                     <option value="7"> 7 </option>
+                 </select>
+             </div>
+
+             <div class="form-group">
+                 <label>Доставка еды в номер</label>
+                 <select name="food_room" class="form-control" id="res_facilities" >
+                     <option value="True"> Да </option>
+                     <option value="False"> Нет </option>
+                 </select>
+             </div>
+
+             <div class="form-group">
+                 <label for="start_date">Дата приезда</label>
+                 <input name="start_date" data-date-format="yyyy-mm-dd" class="form-control datepicker-here" type="text" id="start_date">
+             </div>
+
+             <div class="form-group">
+                 <label for="start_date">Дата выезда</label>
+                 <input name="end_date" data-date-format="yyyy-mm-dd" class="form-control datepicker-here" type="text" id="end_date">
+             </div>
+             <br>
+             <div class="form-group">
+                 <button type="submit" class="btn btn-primary">Бронировать</button>
+
+             </div>
+
+         </form>
+     </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

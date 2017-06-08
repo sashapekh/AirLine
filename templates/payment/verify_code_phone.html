@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="content">
+    <form action="" method="post">
+    {% csrf_token %}
+    <div class="form-inline">
+        <label for="phone_code">Ваш код SMS</label>
+        <input class="form-control" type="text" name="verify_code" id="phone_code">
+        <button class="btn btn-primary">Подтвердить</button>
+    </div>
+    </form>
+    </div>
+    <h2>{{ request.session.code }}</h2>
+{% endblock %}

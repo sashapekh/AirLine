@@ -1,0 +1,51 @@
+{% extends 'account/account.html' %}
+
+{% block account %}
+        <div class="container">
+            <div class="col-md-8">
+            {% if email_success != 'default' %}
+                <h2>{{ email_success }}</h2>
+            {% endif %}
+                <h1>Мои авиабилеты</h1>
+                {% if my_tickets %}
+                    {% for ticket in my_tickets %}
+                        <div class="ticket jumbotron jumbotron-fluid">
+                            <h2>Билет №{{ticket.code}}</h2>
+                            <div class="form-group">
+                                <span class="glyphicon glyphicon-plane"></span>
+                                <h3>Рейс - ({{ ticket.ticket_fk__pplan_ticket__plane_name }})</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                <h3>Дата отправки рейса - {{ ticket.ticket_fk__pplan_ticket__start_date}}</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                <h3>Дата отправки рейса - {{ ticket.ticket_fk__pplan_ticket__end_date}}</h3>
+                            </div>
+
+                            <div class="form-group">
+                                <span class="glyphicon glyphicon-flash"></span>
+                                <h3>Тип билета - {{ ticket.ticket_fk__ticket_type__ticket_type }}</h3>
+                            </div>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <div class="form-group inline-group">
+                                    <select name="ticket_id" id="ticket_id">
+                                        <option value="{{ ticket.ticket_fk__id }}">{{ ticket.ticket_fk__id }}</option>
+                                    </select>
+                                    <label for="email">Email</label>
+                                    <input class="form-control" type="email" id="email" name="email">
+                                </div>
+                                <button class="btn btn-primary" type="submit">Отправить информацию на email</button>
+                            </form>
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+            </div>
+        </div>
+{% endblock %}

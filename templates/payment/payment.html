@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1  class="text-center">Оплата товара</h1>
+    <!-- credit card form -->
+    <div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Платёжная информация
+                    </h3>
+                    <div class="checkbox pull-right">
+                        <label>
+                            <input type="checkbox" />
+                            запомнить
+                        </label>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form action="" autocomplete="off" role="form" method="post">
+                        {% csrf_token %}
+                    <div class="form-group">
+                        <label for="cardNumber">
+                            Номер карты</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="cardNumber" placeholder="Правильный номер карты"
+                                required autofocus />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                        </div>
+                    </div>
+                      <!-- Name -->
+                      <div class="control-group">
+                        <label class="control-label"  for="username">Имя владельца</label>
+                        <div class="controls">
+                             <input type="text" class="form-control" id="cardNumber" placeholder=""
+                                            required  />
+                        </div>
+                      </div>
+                        <!-- phone number -->
+                        <div class="control-group">
+                            <label class="control-label"  for="phone">Ваш телефон</label>
+                            <div class="controls">
+                                 <input type="text" name="verify_phone_number" class="form-control" id="cardNumber" placeholder=" +380999999"
+                                                required  />
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-xs-7 col-md-7">
+                            <div class="form-group">
+                                <label for="expityMonth">
+                                    EXPIRY DATE</label>
+                                <div class="col-xs-6 col-lg-6 pl-ziro">
+                                    <input type="text" class="form-control" id="expityMonth" placeholder="MM" required />
+                                </div>
+                                <div class="col-xs-6 col-lg-6 pl-ziro">
+                                    <input type="text" class="form-control" id="expityYear" placeholder="YY" required /></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-5 col-md-5 pull-right">
+                            <div class="form-group">
+                                <label for="cvCode">
+                                    CVV2 CODE</label>
+                                <input type="password" class="form-control" id="cvCode" placeholder="CVV2" required />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#"><span class="badge pull-right"><span class="glyphicon glyphicon-usd"></span>{{ price }}</span> Сумма к оплате</a>
+                </li>
+            </ul>
+            <br/>
+            <button type="submit" class="btn btn-success btn-lg btn-block">Оплатить</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
